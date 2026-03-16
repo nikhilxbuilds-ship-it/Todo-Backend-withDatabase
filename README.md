@@ -19,7 +19,7 @@ This project demonstrates how to build a basic backend service with user authent
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * Node.js
 * Express.js
@@ -31,7 +31,7 @@ This project demonstrates how to build a basic backend service with user authent
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 project
@@ -45,7 +45,7 @@ project
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 Clone the repository
 
@@ -67,7 +67,7 @@ npm install
 
 ---
 
-## 🔑 Environment Variables
+## Environment Variables
 
 Create a `.env` file in the root directory and add:
 
@@ -78,7 +78,7 @@ JWT_SECRET=your_secret_key
 
 ---
 
-## ▶️ Run the Server
+## Run the Server
 
 ```
 node index.js
@@ -92,7 +92,7 @@ http://localhost:4000
 
 ---
 
-## 📌 API Endpoints
+## API Endpoints
 
 ### Auth
 
@@ -152,7 +152,7 @@ Mark a todo as completed.
 
 ---
 
-## 📖 What I Learned
+## What I Learned
 
 * Building REST APIs with Express
 * JWT-based authentication
@@ -163,7 +163,7 @@ Mark a todo as completed.
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 * Delete Todo endpoint
 * Update Todo title
@@ -173,7 +173,7 @@ Mark a todo as completed.
 
 ---
 
-## 💻 Author
+# Author
 
 Nikhil Kumar
 
@@ -182,5 +182,5 @@ https://github.com/nikhilxbuilds-ship-it
 
 ---
 
-## ⭐ If you found this project helpful
+## If you found this project helpful
 Give it a **star on GitHub** ⭐
