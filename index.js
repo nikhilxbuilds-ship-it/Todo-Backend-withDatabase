@@ -4,12 +4,13 @@ const bcrypt = require("bcrypt");
 const { UserModel, TodoModel } = require("./db");
 const { Authentication } = require("./Authentication");
 const { mongoose } = require("mongoose");
+require('dotenv').config();
 const app = express();
-const JWT_SECRET = "Hello123";
+const JWT_SECRET = process.env.JWT_SECRET;
 app.use(express.json());
 
 mongoose.connect(
-  "mongodb+srv://nk9959745_db_user:hNq1Ip7Wag5DA4Cf@cluster0.bulzd8c.mongodb.net/Todo-app-database",
+  process.env.MONGODB_URL,
 );
 
 app.post("/signup", async function (req, res) {
@@ -130,6 +131,25 @@ app.get("/todo", Authentication, async function (req, res) {
       message: "Internal Server Error",
       error,
     });
+  }
+});
+
+app.put("/todo/:id/completed", Authentication, async function(req, res) {
+  const todoId = req.params.id;
+  const findTodo = await TodoModel.findByIdAndUpdate(
+    todoId,
+    {completed : true},
+    {new : true}
+  )
+  if(!findTodo){
+    return res.status(403).json({
+      message : "Todo doesn't exists"
+    })
+  } else {
+    res.status(200).json({
+      message : "Todo completed!",
+      findTodo
+    })
   }
 });
 
