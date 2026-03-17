@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { z } = require('zod');
 const { UserModel, TodoModel } = require("./db");
 const { Authentication } = require("./Authentication");
 const { mongoose } = require("mongoose");
@@ -15,9 +16,29 @@ mongoose.connect(
 
 app.post("/signup", async function (req, res) {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
-    const name = req.body.name;
+    const requiredBody = z.object({
+      email : z.string().min(5).max(50).email(),
+      password : z.string().min(5).max(50),
+      name : z.string().min(3).max(50)
+    })
+    const parsedataWithSuccess = requiredBody.safeParse(req.body);
+
+    if(!parsedataWithSuccess.success){
+      return res.status(403).json({
+        message : "Incorrect Format!",
+        error : parsedataWithSuccess.error.issues
+      })
+    }
+
+    const { email, password, name } = parsedataWithSuccess.data;
+
+    const existingUser = UserModel.findOne({ email });
+    if(existingUser){
+      return res.status(400).json({
+        message: "User Already Exists, Please Login"
+      })
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     if (!name || !email || !password) {
@@ -35,6 +56,8 @@ app.post("/signup", async function (req, res) {
       message: "You are signed up!",
     });
   } catch (error) {
+    console.log("ERROR OCCURED:", error);
+
     res.status(500).json({
       message: "Internal server error",
       Error: error,
